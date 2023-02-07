@@ -1,0 +1,104 @@
+<div class="col-md-12">
+  <div *ngIf="isSbmitted" class="alert" [ngClass]="{' alert-success':isTrue,' alert-danger':!isTrue}" role="alert ">
+    {{ErrorMessage}}
+</div>
+  <div class="card">
+    <div class="card-header card-header-primary">
+      <h4 class="card-title">Ajoute Client</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="myForm" (ngSubmit)="submit()">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>UserName </label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="username"
+                formControlName="username"
+              />
+              <span
+                class="text-danger small mr-5"
+                *ngIf="
+                myForm.get('username').touched &&
+                myForm.get('username').getError('required')
+              "
+              >
+              Entrer le username</span
+              >
+            </div>
+          </div>
+
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>FullName</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="fullName"
+                formControlName="fullName"
+              />
+              <span
+                class="text-danger small mr-5"
+                *ngIf="
+                  myForm.get('fullName').touched &&
+                  myForm.get('fullName').getError('required')
+                "
+              >
+                Entrer le fullName</span
+              >
+            </div>
+          </div>
+
+
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Role</label>
+              <select name=" category " class="form-select form-select-md mb-3 " aria-label=".form-select-lg example " formControlName="role">
+                <option>user</option>
+                <option>admin</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Password</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="password"
+                formControlName="password"
+              />
+              <span
+                class="text-danger small mr-5"
+                *ngIf="
+                  myForm.get('password').touched &&
+                  myForm.get('password').getError('required')
+                "
+              >
+                Entrer le mot de passe</span
+              >
+            </div>
+          </div>
+          <div class="col-md-12 text-right">
+            <!-- <button type="submit" class="btn btn-primary pull-right">Update Profile</button> -->
+            <button
+              type="submit"
+              class="btn btn-primary col-md-3 "
+              value="Valide"
+              [disabled]="!myForm.valid"
+            >Valide
+            </button>
+
+            <button type="reset" class="btn btn-primary col-md-3 ml-3 ">Reset</button>
+
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

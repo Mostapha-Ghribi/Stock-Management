@@ -1,0 +1,35 @@
+<div class="container-fluid home">
+    <div class="container">
+              <form action="" [formGroup]="myForm">
+           <div class="row" [ngClass]="{'background':opValide}">
+               <div class="col-md-7">
+                   <h4>Supplier</h4>
+                   <div class="form-group">
+                       <select formControlName="idClient" name="delectionner un destinataire" class="form-control" id="select">
+                           <Option value="" disabled selected>Select Supplier</Option>
+                           <Option *ngFor="let item of suppliers" value="{{ item.firstname+' '+item.lastname }}">{{ item.firstname }} {{ item.lastname }}</Option>
+                       </select>
+                   </div>
+               </div>
+               <div class="col-md-12 my-5">
+                   <h4>Articles</h4>
+                   <div class="one-order my-2 " *ngFor="let item of cartOrder$.data;let i = index">
+                       <div class="" >
+                         <span formControlName="idLigne">{{item.id}}</span>
+                       <div class="count">
+                           <span>{{i+1}}</span>
+                       </div>
+                       <div class="right-ligne"></div>
+                       <app-ligne [idLign]="item.idLigne" id="{{ item.id }}"></app-ligne>
+                       </div>
+                   </div>
+                   <button class="btn " (click)="AjouterLign()"> Ajouter Une Ligne</button>
+               </div>
+
+               <div class="col-md-12 text-center">
+                   <div class="btn btn-primary col-md-5" (click)="valide()">Creer la facture</div>
+               </div>
+           </div>
+        </form>
+       </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="container">
+
+    <div class="row py-3 my-2">
+      <div *ngIf="isLoading" [ngClass]="{'alert alert-info':isLoading}" role="alert">
+        {{ErrorMessage}}
+      </div>
+        <div class="col-md-3 mx-5"></div>
+        <div class="pull-right col-md-2 " *ngIf="currentEmployee.role==='admin'">
+            <a routerLink="add" class=" btn btn-primary ">Nouvelle facture</a>
+        </div>
+    </div>
+
+    <div class="row col-md-12">
+        <div class="col-lg-4" *ngFor="let item of data | paginate: { itemsPerPage: 6, currentPage: p }">
+            <div class="card card-margin">
+                <div class="card-header header">
+                    <div class=" no-border">
+                        <span class="card-title"> Ordered By : {{ item.username }}</span>
+                      <br>
+                        <span class="card-title"> Supplier : {{ item.supplier_name }}</span>
+                      <br>
+                        <span class="card-title"> Total Products : {{ item?.data?.length || 0 }}</span>
+                    </div>
+                   <div *ngIf="item.status !== 'done' && currentEmployee.role==='admin'">   <a (click)='delete(item.id)' class="delete danger" *ngIf="!isLoading">
+                        <span class="fa-stack">
+                            <i class="fa fa-square fa-stack-2x"></i>
+                            <i class="fa fa-trash-o fa-stack-1x fa-inverse" style="background-color: red ; cursor: pointer"></i>
+                        </span>
+                   </a>
+                     <br>
+                     <a (click)='addToProducts(item.id)' *ngIf="!isLoading">
+                        <span class="fa-stack"  style="margin-top: 3px" >
+                            <i class="fa fa-square fa-stack-2x" ></i>
+                            <i class="fa fa-check fa-stack-1x fa-inverse" style="background-color: green ; cursor: pointer"></i>
+                        </span>
+                     </a></div>
+                </div>
+                <div class="card-body pt-0">
+                    <div class="widget-49">
+                        <div class="widget-49-title-wrapper mb-2">
+                            <div class="widget-49-date-primary p-2 text-center">
+                                <span class="widget-49-date-day date">{{ item.orderDate | date:'dd-MM-yyyy' }}</span>
+                            </div>
+                            <div class="">
+                                <span class="widget-49-meeting-time strong mx-3"> total :</span> <span class="price">{{
+                                    item.total }} DT</span>
+                              <br><span class="widget-49-meeting-time strong mx-3"> Statut :</span>
+                              <span style="color: #0b3251"><b>{{item.status.toUpperCase()  }}</b></span>
+                            </div>
+                        </div>
+
+                        <div class="widget-49-meeting-action ">
+                            <a routerLink="details/{{ item.id }}" class="btn btn-sm btn-flash-border-primary col-12">Afficher Tout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <pagination-controls previousLabel=" " nextLabel='' (pageChange)="p = $event"></pagination-controls>
+
+    </div>
+
+
+
+
+</div>
